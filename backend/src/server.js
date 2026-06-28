@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 
 const potholeRoutes = require("./routes/potholeRoutes");
+const userRoutes = require("./routes/userRoutes");
 
 // Load environment variables
 require("dotenv").config();
@@ -17,6 +18,8 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/potholes", potholeRoutes);
+
+app.use("/api/users", userRoutes);
 
 // Test route to verify server is running
 app.get("/", (req, res) => {

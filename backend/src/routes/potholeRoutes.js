@@ -1,3 +1,4 @@
+const authenticateToken = require("../middleware/authMiddleware");
 const express = require("express");
 const {
   getPotholes,
@@ -8,7 +9,7 @@ const {
 const router = express.Router();
 
 router.get("/", getPotholes);
-router.post("/", createPothole);
-router.post("/:id/like", likePothole)
+router.post("/",authenticateToken, createPothole);
+router.post("/:id/like", authenticateToken, likePothole)
 
 module.exports = router;

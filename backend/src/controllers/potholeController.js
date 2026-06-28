@@ -31,9 +31,9 @@ async function createPothole(req, res) {
 async function likePothole(req, res) {
   try {
     const potholeId = req.params.id;
-    const { user_id } = req.body;
+    const userId = req.user.id;
 
-    const like = await Pothole.likePothole(potholeId, user_id);
+    const like = await Pothole.likePothole(potholeId, userId);
 
     res.status(201).json(like);
   } catch (err) {
