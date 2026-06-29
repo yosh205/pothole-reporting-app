@@ -1,6 +1,6 @@
 > **Project Status:** In active development.
 >
-> Current milestone: Backend API complete (CRUD foundation, PostgreSQL integration, MVC architecture).
+> **Current Milestone:** Backend API complete with authentication, image uploads, and community features. React Native mobile application in development.
 
 # Pothole Tracker 🚧
 
@@ -12,27 +12,51 @@ Pothole Tracker is a full-stack mobile application that enables users to report,
 
 ## Current Features
 
+### Backend
+
 * REST API built with Node.js and Express
 * PostgreSQL database
 * MVC (Model-View-Controller) architecture
+* JWT-based authentication
+* User registration and login
+* Password hashing with bcrypt
+* Protected API routes
+
+### Pothole Reporting
+
 * Create new pothole reports
+* Upload pothole images
 * Retrieve all pothole reports
-* Community confirmation system for potholes
-* Community confirmation count for each pothole
+* Retrieve individual pothole reports
+* Associate potholes with registered users
+
+### Community Features
+
+* Community confirmation (like/unlike) system
+* Live confirmation count for each pothole
+* Comment system for pothole reports
+* User ownership of reports
+
+### Development
+
 * API tested using Postman
+* Git version control
+* GitHub repository with milestone-based commits
+
+---
 
 ## Planned Features
 
-* User registration and authentication
-* JWT-based login system
-* Upload photos directly from mobile devices
-* Interactive map using Google Maps
-* GPS location detection
-* Comments on pothole reports
+* React Native mobile application
+* Login and registration screens
+* Interactive Google Maps integration
+* Automatic GPS location detection
+* Camera integration for taking photos
 * User profiles
 * Search and filtering
 * Severity indicators based on community confirmations
 * Push notifications
+* Deployment to a cloud platform
 
 ---
 
@@ -43,12 +67,16 @@ Pothole Tracker is a full-stack mobile application that enables users to report,
 * Node.js
 * Express.js
 * PostgreSQL
+* JWT Authentication
+* bcrypt
+* Multer (image uploads)
 
-## Mobile (Planned)
+## Mobile
 
 * React Native
-* Google Maps API
-* React Navigation
+* Expo
+* Google Maps API (planned)
+* React Navigation (planned)
 
 ## Development Tools
 
@@ -56,6 +84,7 @@ Pothole Tracker is a full-stack mobile application that enables users to report,
 * Git
 * GitHub
 * Postman
+* Expo Go
 
 ---
 
@@ -70,29 +99,51 @@ pothole-tracker/
 ├── backend/
 │   ├── src/
 │   │   ├── controllers/
+│   │   ├── middleware/
 │   │   ├── models/
 │   │   ├── routes/
 │   │   ├── db.js
 │   │   └── server.js
 │   │
+│   ├── uploads/
 │   ├── package.json
 │   ├── package-lock.json
 │   └── .env (not committed)
 │
-└── mobile/ (coming soon)
+└── mobile/
+    ├── app/
+    ├── assets/
+    ├── components/
+    └── ...
 ```
 
 ---
 
 # Current API Endpoints
 
+## Users
+
+| Method | Endpoint              | Description         |
+| ------ | --------------------- | ------------------- |
+| POST   | `/api/users/register` | Register a new user |
+| POST   | `/api/users/login`    | Authenticate a user |
+
 ## Potholes
 
 | Method | Endpoint                 | Description                  |
 | ------ | ------------------------ | ---------------------------- |
 | GET    | `/api/potholes`          | Retrieve all pothole reports |
-| POST   | `/api/potholes`          | Create a new pothole report  |
-| POST   | `/api/potholes/:id/like` | Confirm a pothole report     |
+| GET    | `/api/potholes/:id`      | Retrieve a single pothole    |
+| POST   | `/api/potholes`          | Create a pothole report      |
+| POST   | `/api/potholes/:id/like` | Confirm a pothole            |
+| DELETE | `/api/potholes/:id/like` | Remove a confirmation        |
+
+## Comments
+
+| Method | Endpoint                     | Description       |
+| ------ | ---------------------------- | ----------------- |
+| GET    | `/api/potholes/:id/comments` | Retrieve comments |
+| POST   | `/api/potholes/:id/comments` | Add a comment     |
 
 ---
 
@@ -100,34 +151,37 @@ pothole-tracker/
 
 Current tables:
 
+* `users`
 * `potholes`
 * `pothole_likes`
+* `comments`
 
 The database stores:
 
+* User accounts
 * GPS coordinates
-* Description
-* Image URL
-* Creation date
-* Community confirmation count
+* Pothole descriptions
+* Uploaded image paths
+* Creation dates
+* Community confirmations
+* User comments
 
 ---
 
 # Future Development
 
-Pothole Tracker is currently under active development.
+Current development focuses on the React Native mobile application.
 
-Planned milestones include:
+Upcoming milestones include:
 
-* User authentication
-* React Native mobile application
-* Real-time GPS integration
-* Photo uploads
-* Interactive map
-* Comments
-* Additional road hazard categories
-* Improved UI/UX
-* Deployment to a cloud platform
+* Mobile authentication
+* Display potholes on an interactive map
+* GPS-based reporting
+* Camera integration
+* User profile pages
+* Search and filtering
+* Push notifications
+* Cloud deployment
 
 ---
 
@@ -138,4 +192,5 @@ Planned milestones include:
 Concordia University
 
 Bachelor of Engineering in Software Engineering
+
 
