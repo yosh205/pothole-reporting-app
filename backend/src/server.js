@@ -4,6 +4,7 @@ const cors = require("cors");
 
 const potholeRoutes = require("./routes/potholeRoutes");
 const userRoutes = require("./routes/userRoutes");
+const commentRoutes = require("./routes/commentRoutes");
 
 // Load environment variables
 require("dotenv").config();
@@ -17,9 +18,9 @@ app.use(cors());
 // Automatically convert incoming JSON requests into JavaScript Objects
 app.use(express.json());
 
-app.use("/api/potholes", potholeRoutes);
-
 app.use("/api/users", userRoutes);
+app.use("/api/potholes", potholeRoutes);
+app.use("/api/potholes", commentRoutes);
 
 // Test route to verify server is running
 app.get("/", (req, res) => {
