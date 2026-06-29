@@ -14,7 +14,10 @@ async function createPothole(req, res) {
   try {
     const { latitude, longitude, description, image_url } = req.body;
 
+    const userId = req.user.id;
+
     const pothole = await Pothole.createPothole(
+      userId,
       latitude,
       longitude,
       description,
@@ -47,8 +50,45 @@ async function likePothole(req, res) {
   }
 }
 
+async function getPothole(req, res) {
+  try {
+    const potholeId = req.params.id;
+
+    const pothole = await Pothole.getPotholeById(potholeId);
+
+    if (!pothole) {
+      return res.status(404).json({ error: "Pothole not found" });
+    }
+
+    res.json(pothole);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
+  }
+}
+
+async function unlikePothole(req, res) {
+  try {
+    const potholeId = req.params.id;
+    const userId = req.user.id;
+
+    const unlike = await Pothole.unlikePothole(potholeId, userId);
+
+    if (!unlike) {
+      return res.status(404).json({ error: "Like not found" });
+    }
+
+    res.json({ message: "Pothole unliked successfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
+  }
+}
+
 module.exports = {
   getPotholes,
+  getPothole,
   createPothole,
   likePothole,
+  unlikePothole,
 };
