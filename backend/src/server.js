@@ -1,6 +1,7 @@
 // Import required packages
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 
 const potholeRoutes = require("./routes/potholeRoutes");
 const userRoutes = require("./routes/userRoutes");
@@ -17,6 +18,8 @@ app.use(cors());
 
 // Automatically convert incoming JSON requests into JavaScript Objects
 app.use(express.json());
+
+app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 
 app.use("/api/users", userRoutes);
 app.use("/api/potholes", potholeRoutes);

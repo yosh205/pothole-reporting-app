@@ -12,9 +12,12 @@ async function getPotholes(req, res) {
 
 async function createPothole(req, res) {
   try {
-    const { latitude, longitude, description, image_url } = req.body;
-
+    const { latitude, longitude, description } = req.body;
     const userId = req.user.id;
+
+    const image_url = req.file
+      ? `/uploads/${req.file.filename}`
+      : null;
 
     const pothole = await Pothole.createPothole(
       userId,
